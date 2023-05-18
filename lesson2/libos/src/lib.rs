@@ -4,12 +4,7 @@
 #![feature(naked_functions)]
 
 // component mmu
-#[cfg(feature = "b0")]
 extern crate mmu_identity as mmu;
-#[cfg(any(feature = "mmu_enable", feature = "mmu_disable"))]
-extern crate mmu_alterable as mmu;
-#[cfg(any(feature = "sv39", feature = "sv48"))]
-extern crate mmu_scheme as mmu;
 
 pub use mmu::KERNEL_BASE;
 

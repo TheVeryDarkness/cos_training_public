@@ -1,10 +1,12 @@
 #![no_std]
 #![no_main]
 
+use core::slice::from_raw_parts;
+
 use drv0 as _;
 use drv1 as _;
 
-use drv_common::CallEntry;
+use drv_common::{CallEntry, Driver};
 
 #[no_mangle]
 fn main() {
@@ -16,12 +18,24 @@ fn main() {
 
 /* Todo: Implement it */
 fn traverse_drivers() {
-    libos::println!("\n!!! Fix it !!!\n");
-    // Parse range of init_calls by calling C function.
-    // display_initcalls_range(range_start, range_end);
+    extern "C" {
+        fn initcalls_start() -> *const CallEntry;
+        fn initcalls_end() -> *const CallEntry;
+    }
+    unsafe {
+        let range_start = initcalls_start();
+        let range_end = initcalls_end();
+        // Parse range of init_calls by calling C function.
+        display_initcalls_range(range_start as usize, range_end as usize);
 
-    // For each driver, display name & compatible
-    // display_drv_info(drv.name, drv.compatible);
+        let entries: &[CallEntry] =
+            from_raw_parts(range_start, range_end.offset_from(range_start) as usize);
+        // For each driver, display name & compatible
+        entries.iter().for_each(|entry: &CallEntry| {
+            let drv: Driver = (entry.init_fn)();
+            display_drv_info(drv.name, drv.compatible);
+        })
+    }
 }
 
 fn display_initcalls_range(start: usize, end: usize) {

@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 drv_common = { path = "../drv_common" }
+mod_common = { path = "../mod_common" }

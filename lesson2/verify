@@ -10,6 +10,13 @@ for step in "$@"; do
         b0)
             make clean && make STEP=b0 run | tee /tmp/b0
             ;;
+        b1)
+            make clean && make STEP=b1 run | tee /tmp/b1
+            ;;
+            # EXTRA_ARGS=''
+            # -Clink-dead-code
+            # -Ccodegen-units=1
+            # -Clto=thin
         *)
             echo 'no such step'
             ;;

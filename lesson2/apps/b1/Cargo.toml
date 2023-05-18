@@ -1,16 +1,17 @@
 [package]
-name = "b0"
+name = "b1"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-libos = { path = "../../libos", features = ["b0"] }
+libos = { path = "../../libos", features = ["b1"] }
 drv0 = { path = "../../drv0" }
 drv1 = { path = "../../drv1" }
 drv2 = { path = "../../drv2" }
 drv_common = { path = "../../drv_common" }
+mod_common = { path = "../../mod_common", features = ["passive"] }
 
 [build-dependencies]
 cc = "1.0"
